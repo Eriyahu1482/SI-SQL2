@@ -1,4 +1,5 @@
-﻿using SI_SQL2.Core;
+﻿using MaterialDesignThemes.Wpf;
+using SI_SQL2.Core;
 using SI_SQL2.Model;
 using System;
 using System.Collections.Generic;
@@ -27,16 +28,7 @@ namespace SI_SQL2.View.Pages
 
         private void Enter_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    Core1.DB.Users.Add(new User()
-            //    {
-            //        FirstName = Name.Text,
-            //        LastName = Pass.Password,
-            //        }
-            //        );
-            //}
-            //catch { }
+
             try
             {
                 User userModel = Core1.DB.Users.FirstOrDefault(g => g.FirstName == Name.Text && g.LastName == Pass.Password);
@@ -78,17 +70,32 @@ namespace SI_SQL2.View.Pages
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            Brd.Visibility = Visibility.Visible;
+            new CloseWindow().ShowDialog();
         }
 
-        private void BtnYes_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        //private void BtnYes_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Application.Current.Shutdown();
+        //}
 
-        private void BtnNo_Click(object sender, RoutedEventArgs e)
+        //private void BtnNo_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Brd.Visibility = Visibility.Hidden;
+        //}
+
+
+        private void Create_Click(object sender, RoutedEventArgs e)
         {
-            Brd.Visibility = Visibility.Hidden;
+            try
+            {
+                Core1.DB.Users.Add(new User()
+                {
+                    FirstName = Name.Text,
+                    LastName = Pass.Password,
+                });
+                Core1.DB.SaveChanges();
+            }
+            catch { }
         }
     }
 }
